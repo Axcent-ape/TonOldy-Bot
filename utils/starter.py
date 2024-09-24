@@ -25,7 +25,7 @@ async def start(thread: int, session_name: str, phone_number: str, proxy: [str, 
         await oldy.logout()
 
         sleep = oldy.get_sleep_time() + random.uniform(*config.DELAYS['ADDITION_SLEEP'])
-        logger.info(f"Thread {thread} | {account} | Sleep {range(sleep, 1)}")
+        logger.info(f"Thread {thread} | {account} | Sleep {int(sleep)}")
         await asyncio.sleep(sleep)
 
 
@@ -39,7 +39,7 @@ async def stats():
 
     data = await asyncio.gather(*tasks)
     path = f"statistics/statistics_{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.csv"
-    columns = ['Phone number', 'Name', 'balance', 'leaderboard', 'referral_link', 'Proxy (login:password@ip:port)']
+    columns = ['Phone number', 'Name', 'balance', 'leaderboard', 'referrals', 'Proxy (login:password@ip:port)']
 
     if not os.path.exists('statistics'): os.mkdir('statistics')
     df = pd.DataFrame(data, columns=columns)
